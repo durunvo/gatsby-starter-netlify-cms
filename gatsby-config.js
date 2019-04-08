@@ -2,6 +2,7 @@ var proxy = require("http-proxy-middleware")
 
 module.exports = {
   siteMetadata: {
+    siteUrl: 'https://blog.propachill.com',
     title: 'Expats Life in Bangkok Life - Propachill.com',
     description:
       'This blog is about expats life in Bangkok',
@@ -9,6 +10,30 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass',
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap.xml`,
+        // Exclude specific pages or groups of pages using glob parameters
+        // See: https://github.com/isaacs/minimatch
+        exclude: ['/admin/*', '/contact', '/products/*']
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://blog.propachill.com',
+        sitemap: 'https://blog.propachill.com/sitemap.xml',
+        env: {
+          development: {
+            policy: [{ userAgent: '*', disallow: ['/'] }]
+          },
+          production: {
+            policy: [{ userAgent: '*', allow: '/', disallow: ['/admin'] }]
+          }
+        }
+      }
+    },
     {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',
