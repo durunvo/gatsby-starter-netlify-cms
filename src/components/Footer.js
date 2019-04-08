@@ -78,7 +78,7 @@ const Footer = class extends React.Component {
                 </a>
                 <a title="youtube" href="https://www.youtube.com/channel/UCZgaC-vpv07nEjOz-vdoowA">
                   <img
-                    src={vimeo}
+                    src={youtube}
                     alt="Youtube"
                     style={{ width: '1em', height: '1em' }}
                   />
