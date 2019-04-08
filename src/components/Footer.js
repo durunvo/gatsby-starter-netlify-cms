@@ -5,7 +5,7 @@ import logo from '../img/logo.svg'
 import facebook from '../img/social/facebook.svg'
 import instagram from '../img/social/instagram.svg'
 import twitter from '../img/social/twitter.svg'
-import vimeo from '../img/social/vimeo.svg'
+import youtube from '../img/social/youtube.svg'
 
 const Footer = class extends React.Component {
   render() {
@@ -13,8 +13,8 @@ const Footer = class extends React.Component {
       <footer className="footer has-background-black has-text-white-ter">
         <div className="content has-text-centered">
           <img
-            src={logo}
-            alt="Kaldi"
+            src="https://www.propachill.com/static/images/logo.png"
+            alt="Propachill"
             style={{ width: '14em', height: '10em' }}
           />
         </div>
@@ -33,26 +33,6 @@ const Footer = class extends React.Component {
                       <Link className="navbar-item" to="/about">
                         About
                       </Link>
-                    </li>
-                    <li>
-                      <Link className="navbar-item" to="/products">
-                        Products
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="navbar-item" to="/contact/examples">
-                        Form Examples
-                      </Link>
-                    </li>
-                    <li>
-                      <a
-                        className="navbar-item"
-                        href="/admin/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Admin
-                      </a>
                     </li>
                   </ul>
                 </section>
@@ -74,14 +54,14 @@ const Footer = class extends React.Component {
                 </section>
               </div>
               <div className="column is-4 social">
-                <a title="facebook" href="https://facebook.com">
+                <a title="facebook" href="https://facebook.com/propachill">
                   <img
                     src={facebook}
                     alt="Facebook"
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="twitter" href="https://twitter.com">
+                <a title="twitter" href="https://twitter.com/propachill">
                   <img
                     className="fas fa-lg"
                     src={twitter}
@@ -89,17 +69,17 @@ const Footer = class extends React.Component {
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="instagram" href="https://instagram.com">
+                <a title="instagram" href="https://instagram.com/propachill">
                   <img
                     src={instagram}
                     alt="Instagram"
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="vimeo" href="https://vimeo.com">
+                <a title="youtube" href="https://www.youtube.com/channel/UCZgaC-vpv07nEjOz-vdoowA">
                   <img
                     src={vimeo}
-                    alt="Vimeo"
+                    alt="Youtube"
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
