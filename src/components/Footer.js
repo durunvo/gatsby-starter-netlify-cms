@@ -15,7 +15,7 @@ const Footer = class extends React.Component {
           <img
             src="https://www.propachill.com/static/images/logo.png"
             alt="Propachill"
-            style={{ width: '14em', height: '10em' }}
+            style={{ width: '14em' }}
           />
         </div>
         <div className="content has-text-centered has-background-black has-text-white-ter">
@@ -42,12 +42,12 @@ const Footer = class extends React.Component {
                   <ul className="menu-list">
                     <li>
                       <Link className="navbar-item" to="/blog">
-                        Latest Stories
+                        Blog
                       </Link>
                     </li>
                     <li>
-                      <Link className="navbar-item" to="/contact">
-                        Contact
+                      <a className="navbar-item" href="https://propachill.com">
+                        Main site
                       </Link>
                     </li>
                   </ul>
