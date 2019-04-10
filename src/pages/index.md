@@ -1,9 +1,9 @@
 ---
 templateKey: index-page
-title: Great coffee with a conscience
+title: A Guide to Thailand - Life, Eats, Places, Shops and More - PropaChill.com
 image: /img/home-jumbotron.jpg
-heading: Great coffee with a conscience
-subheading: Support sustainable farming while enjoying a cup
+heading: A Guide to Thailand
+subheading: Life, Eats, Places, Shops and More
 mainpitch:
   title: Why Kaldi
   description: >

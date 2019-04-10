@@ -5,6 +5,7 @@ import Helmet from 'react-helmet'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
+import PreviewCompatibleImage from '../components/PreviewCompatibleImage'
 
 export const BlogPostTemplate = ({
   content,
@@ -13,8 +14,12 @@ export const BlogPostTemplate = ({
   tags,
   title,
   helmet,
+  date,
+  image,
 }) => {
   const PostContent = contentComponent || Content
+
+  console.log(image);
 
   return (
     <section className="section">
@@ -25,6 +30,8 @@ export const BlogPostTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
+            <p>{date}</p>
+            {image && <PreviewCompatibleImage imageInfo={image} />}
             <p>{description}</p>
             <PostContent content={content} />
             {tags && tags.length ? (
@@ -51,6 +58,8 @@ BlogPostTemplate.propTypes = {
   contentComponent: PropTypes.func,
   description: PropTypes.string,
   title: PropTypes.string,
+  date: PropTypes.string,
+  image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   helmet: PropTypes.object,
 }
 
@@ -72,6 +81,8 @@ const BlogPost = ({ data }) => {
             />
           </Helmet>
         }
+        date={post.frontmatter.date}
+        image={post.frontmatter.image}
         tags={post.frontmatter.tags}
         title={post.frontmatter.title}
       />
@@ -97,6 +108,13 @@ export const pageQuery = graphql`
         title
         description
         tags
+        image {
+          childImageSharp {
+            fluid(maxWidth: 2048, quality: 100) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }

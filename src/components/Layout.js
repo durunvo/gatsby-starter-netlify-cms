@@ -17,7 +17,7 @@ const TemplateWrapper = ({ children }) => {
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/img/apple-touch-icon.png"
+          href="/img/apple-icon-180x180.png"
         />
         <link
           rel="icon"
@@ -34,7 +34,7 @@ const TemplateWrapper = ({ children }) => {
 
         <link
           rel="mask-icon"
-          href="/img/safari-pinned-tab.svg"
+          href="/img/safari-pinned-tab.png"
           color="#ff4400"
         />
         <meta name="theme-color" content="#fff" />
@@ -42,7 +42,7 @@ const TemplateWrapper = ({ children }) => {
         <meta property="og:type" content="business.business" />
         <meta property="og:title" content={title} />
         <meta property="og:url" content="/" />
-        <meta property="og:image" content="/img/og-image.jpg" />
+        <meta property="og:image" content="/img/og-image.png" />
       </Helmet>
       <Navbar />
       <div>{children}</div>

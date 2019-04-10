@@ -22,7 +22,6 @@ export const IndexPageTemplate = ({
         backgroundImage: `url(${
           !!image.childImageSharp ? image.childImageSharp.fluid.src : image
         })`,
-        backgroundPosition: `top left`,
         backgroundAttachment: `fixed`,
       }}
     >
@@ -44,7 +43,7 @@ export const IndexPageTemplate = ({
             padding: '0.25em',
           }}
         >
-          {title}
+          {heading}
         </h1>
         <h3
           className="has-text-weight-bold is-size-5-mobile is-size-5-tablet is-size-4-widescreen"
@@ -64,7 +63,6 @@ export const IndexPageTemplate = ({
           <div className="columns">
             <div className="column is-10 is-offset-1">
               <div className="content">
-                {/*
                 <div className="content">
                   <div className="tile">
                     <h1 className="title">{mainpitch.title}</h1>
@@ -89,7 +87,6 @@ export const IndexPageTemplate = ({
                     </Link>
                   </div>
                 </div>
-                */}
                 <div className="column is-12">
                   <h3 className="has-text-weight-semibold is-size-2">
                     Latest stories
