@@ -13,6 +13,8 @@ const TemplateWrapper = ({ children }) => {
         <html lang="en" />
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="image" content="/img/og-image.png" />
+        <link rel="canonical" href="/" />
 
         <link
           rel="apple-touch-icon"
@@ -39,7 +41,15 @@ const TemplateWrapper = ({ children }) => {
         />
         <meta name="theme-color" content="#fff" />
 
-        <meta property="og:type" content="business.business" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@propachill" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image:src" content="/img/og-image.png" />
+        <meta name="twitter:image" content="/img/og-image.png" />
+
+        <meta property="og:site_name" content="PropaChill Blog" />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:url" content="/" />
         <meta property="og:image" content="/img/og-image.png" />

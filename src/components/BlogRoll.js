@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql, StaticQuery } from 'gatsby'
+import PreviewCompatibleImage from '../components/PreviewCompatibleImage'
 
 class BlogRoll extends React.Component {
   render() {
@@ -12,6 +13,7 @@ class BlogRoll extends React.Component {
         {posts &&
           posts.map(({ node: post }) => (
             <div className="is-parent column is-6" key={post.id}>
+              {post.frontmatter.image && <PreviewCompatibleImage imageInfo={post.frontmatter.image} />}
               <article className="tile is-child box notification">
                 <p>
                   <Link
@@ -68,6 +70,14 @@ export default () => (
                 title
                 templateKey
                 date(formatString: "MMMM DD, YYYY")
+                image {
+                  publicURL
+                  childImageSharp {
+                    fluid(maxWidth: 2048, quality: 100) {
+                      ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
               }
             }
           }

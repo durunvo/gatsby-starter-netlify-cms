@@ -74,7 +74,7 @@ const Navbar = class extends React.Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Back to main site
+                Go to Propachill.com
               </a>
             </div>
           </div>

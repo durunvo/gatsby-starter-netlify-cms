@@ -3,7 +3,7 @@ var proxy = require("http-proxy-middleware")
 module.exports = {
   siteMetadata: {
     siteUrl: 'https://blog.propachill.com',
-    title: 'A Guide to Thailand - Life, Eats, Places, Shops and More - PropaChill.com',
+    title: 'A Guide to Thailand - Life, Eats, Places, Shops and More - PropaChill Blog',
     description:
       'Bangkok welcomes more visitors than any other city in the world and it doesn’t take long to realise why. This is a city of contrasts with action at every turn; marvel at the gleaming temples, catch a tuk tuk along the bustling Chinatown or take a longtail boat through floating markets.',
   },

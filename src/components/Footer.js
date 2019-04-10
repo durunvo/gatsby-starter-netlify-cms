@@ -46,22 +46,22 @@ const Footer = class extends React.Component {
                       </Link>
                     </li>
                     <li>
-                      <a className="navbar-item" href="https://propachill.com">
-                        Main site
+                      <a className="navbar-item" href="https://propachill.com" target="_blank">
+                        Propachill.com
                       </a>
                     </li>
                   </ul>
                 </section>
               </div>
               <div className="column is-4 social">
-                <a title="facebook" href="https://facebook.com/propachill">
+                <a title="facebook" href="https://facebook.com/propachill" target="_blank">
                   <img
                     src={facebook}
                     alt="Facebook"
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="twitter" href="https://twitter.com/propachill">
+                <a title="twitter" href="https://twitter.com/propachill" target="_blank">
                   <img
                     className="fas fa-lg"
                     src={twitter}
@@ -69,14 +69,14 @@ const Footer = class extends React.Component {
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="instagram" href="https://instagram.com/propachill">
+                <a title="instagram" href="https://instagram.com/propachill" target="_blank">
                   <img
                     src={instagram}
                     alt="Instagram"
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="youtube" href="https://www.youtube.com/channel/UCZgaC-vpv07nEjOz-vdoowA">
+                <a title="youtube" href="https://www.youtube.com/channel/UCZgaC-vpv07nEjOz-vdoowA" target="_blank">
                   <img
                     src={youtube}
                     alt="Youtube"

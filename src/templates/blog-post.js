@@ -5,9 +5,10 @@ import Helmet from 'react-helmet'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
-import PreviewCompatibleImage from '../components/PreviewCompatibleImage'
+import { DiscussionEmbed } from 'disqus-react'
 
 export const BlogPostTemplate = ({
+  id,
   content,
   contentComponent,
   description,
@@ -18,8 +19,11 @@ export const BlogPostTemplate = ({
   image,
 }) => {
   const PostContent = contentComponent || Content
-
-  console.log(image);
+  const disqusShortname = "blog-propachill-com";
+  const disqusConfig = {
+    identifier: id,
+    title: title,
+  };
 
   return (
     <section className="section">
@@ -30,9 +34,7 @@ export const BlogPostTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-            <p>{date}</p>
-            {image && <PreviewCompatibleImage imageInfo={image} />}
-            <p>{description}</p>
+            <p>Published on {date} by Admin</p>
             <PostContent content={content} />
             {tags && tags.length ? (
               <div style={{ marginTop: `4rem` }}>
@@ -46,6 +48,7 @@ export const BlogPostTemplate = ({
                 </ul>
               </div>
             ) : null}
+            <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
           </div>
         </div>
       </div>
@@ -63,7 +66,7 @@ BlogPostTemplate.propTypes = {
   helmet: PropTypes.object,
 }
 
-const BlogPost = ({ data }) => {
+const BlogPost = ({ data, location }) => {
   const { markdownRemark: post } = data
 
   return (
@@ -73,14 +76,23 @@ const BlogPost = ({ data }) => {
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
         helmet={
-          <Helmet titleTemplate="%s | Blog">
+          <Helmet titleTemplate="%s - PropaChill Blog">
             <title>{`${post.frontmatter.title}`}</title>
+            <link rel="canonical" href="/" />
             <meta
               name="description"
               content={`${post.frontmatter.description}`}
             />
+            <meta
+              image={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'}
+            />
+            <meta property="og:type" content="article" />
+            <meta property="og:url" content={location.pathname} />
+            <meta property="og:title" content={post.frontmatter.title} />
+            <meta property="og:image" content={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'} />
           </Helmet>
         }
+        id={post.id}
         date={post.frontmatter.date}
         image={post.frontmatter.image}
         tags={post.frontmatter.tags}
@@ -109,6 +121,7 @@ export const pageQuery = graphql`
         description
         tags
         image {
+          publicURL
           childImageSharp {
             fluid(maxWidth: 2048, quality: 100) {
               ...GatsbyImageSharpFluid
