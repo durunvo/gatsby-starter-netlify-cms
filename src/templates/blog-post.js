@@ -17,7 +17,6 @@ export const BlogPostTemplate = ({
   title,
   helmet,
   date,
-  image,
   latest,
   href,
 }) => {
@@ -46,8 +45,12 @@ export const BlogPostTemplate = ({
                 </ul>
               </div>
             ) : null}
-            <h4>Share</h4>
-            <p><Facebook link={href} /><Twitter link={href} /><Linkedin link={href} /><Mail link={href} /></p>
+            {href &&
+              [
+                <h4>Share</h4>,
+                <p><Facebook link={href} /><Twitter link={href} /><Linkedin link={href} /><Mail link={href} /></p>
+              ]
+            }
             <h4>Author</h4>
             <p>PropaChill Team - We provide you accommodation in Bangkok, Follow us at <a href="https://www.facebook.com/propachill" target="_blank" rel="noopener noreferrer">PropaChill</a> if you want to be informed about new articles. We are open to any suggestions from you. Do not hesitate to tell me what you think.</p>
             <h4>Latest Posts</h4>
@@ -88,7 +91,7 @@ BlogPostTemplate.propTypes = {
 
 const BlogPost = ({ data, location }) => {
   const { markdownRemark: post, allMarkdownRemark } = data
-  console.log(location);
+
   return (
     <Layout>
       <BlogPostTemplate
@@ -98,7 +101,7 @@ const BlogPost = ({ data, location }) => {
         helmet={
           <Helmet titleTemplate="%s - PropaChill Blog">
             <title>{`${post.frontmatter.title}`}</title>
-            <link rel="canonical" href="/" />
+            <link rel="canonical" href={location.href} />
             <meta
               name="description"
               content={`${post.frontmatter.description}`}
@@ -106,6 +109,12 @@ const BlogPost = ({ data, location }) => {
             <meta
               image={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'}
             />
+
+            <meta name="twitter:title" content={post.frontmatter.title} />
+            <meta name="twitter:description" content={post.frontmatter.description} />
+            <meta name="twitter:image:src" content={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'} />
+            <meta name="twitter:image" content={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'} />
+
             <meta property="og:type" content="article" />
             <meta property="og:url" content={location.href} />
             <meta property="og:title" content={post.frontmatter.title} />
@@ -114,7 +123,6 @@ const BlogPost = ({ data, location }) => {
         }
         id={post.id}
         date={post.frontmatter.date}
-        image={post.frontmatter.image}
         tags={post.frontmatter.tags}
         title={post.frontmatter.title}
         latest={allMarkdownRemark.edges}
