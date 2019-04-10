@@ -7,20 +7,17 @@ import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 import { DiscussionEmbed } from 'disqus-react'
 import { Twitter, Facebook, Linkedin, Mail } from 'react-social-sharing'
+import SEO from '../components/SEO';
 
 export const BlogPostTemplate = ({
-  id,
-  content,
+  post,
   contentComponent,
-  description,
-  tags,
-  title,
   helmet,
-  date,
   latest,
   href,
 }) => {
   const PostContent = contentComponent || Content
+  const { id, title, tags, date, html, description, readingTime } = post
 
   return (
     <section className="section">
@@ -31,8 +28,8 @@ export const BlogPostTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-            <p>{date}</p>
-            <PostContent content={content} />
+            <p>{date} • {readingTime.text}</p>
+            <PostContent content={html} />
             {tags && tags.length ? (
               <div style={{ marginTop: `4rem` }}>
                 <h4>Tags</h4>
@@ -46,18 +43,18 @@ export const BlogPostTemplate = ({
               </div>
             ) : null}
             {href &&
-              [
-                <h4>Share</h4>,
-                <p><Facebook link={href} /><Twitter link={href} /><Linkedin link={href} /><Mail link={href} /></p>
-              ]
+              <>
+                <h4>Share</h4>
+                <div><Facebook link={href} /><Twitter link={href} /><Linkedin link={href} /><Mail link={href} /></div>
+              </>
             }
             <h4>Author</h4>
             <p>PropaChill Team - We provide you accommodation in Bangkok, Follow us at <a href="https://www.facebook.com/propachill" target="_blank" rel="noopener noreferrer">PropaChill</a> if you want to be informed about new articles. We are open to any suggestions from you. Do not hesitate to tell me what you think.</p>
             <h4>Latest Posts</h4>
             <ul>
-            {latest &&
+            {latest && latest.length &&
               latest.map(({ node: post }) => (
-                <li>
+                <li key={post.id}>
                   <Link
                     className="title has-text-primary is-size-4"
                     to={post.fields.slug}
@@ -71,7 +68,7 @@ export const BlogPostTemplate = ({
               ))
             }
             </ul>
-            <DiscussionEmbed shortname="blog-propachill-com" config={{ identifier: id, title: title }} />
+            <DiscussionEmbed shortname="blog-propachill-com" config={{ identifier: id, title }} />
           </div>
         </div>
       </div>
@@ -80,51 +77,40 @@ export const BlogPostTemplate = ({
 }
 
 BlogPostTemplate.propTypes = {
-  content: PropTypes.node.isRequired,
   contentComponent: PropTypes.func,
-  description: PropTypes.string,
-  title: PropTypes.string,
-  date: PropTypes.string,
-  image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   helmet: PropTypes.object,
+  post: PropTypes.shape({
+    html: PropTypes.node.isRequired,
+    description: PropTypes.string,
+    title: PropTypes.string,
+    date: PropTypes.string,
+    image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  })
 }
 
 const BlogPost = ({ data, location }) => {
   const { markdownRemark: post, allMarkdownRemark } = data
 
+  const finalPost = {
+    ...post,
+    ...post.fields,
+    ...post.frontmatter,
+  }
+
+  console.log(finalPost);
+
   return (
     <Layout>
       <BlogPostTemplate
-        content={post.html}
+        post={finalPost}
         contentComponent={HTMLContent}
-        description={post.frontmatter.description}
         helmet={
-          <Helmet titleTemplate="%s - PropaChill Blog">
-            <title>{`${post.frontmatter.title}`}</title>
-            <link rel="canonical" href={location.href} />
-            <meta
-              name="description"
-              content={`${post.frontmatter.description}`}
-            />
-            <meta
-              image={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'}
-            />
-
-            <meta name="twitter:title" content={post.frontmatter.title} />
-            <meta name="twitter:description" content={post.frontmatter.description} />
-            <meta name="twitter:image:src" content={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'} />
-            <meta name="twitter:image" content={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'} />
-
-            <meta property="og:type" content="article" />
-            <meta property="og:url" content={location.href} />
-            <meta property="og:title" content={post.frontmatter.title} />
-            <meta property="og:image" content={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'} />
-          </Helmet>
+          <SEO
+            isBlogPost={true}
+            postData={finalPost}
+            postImage={finalPost.image && finalPost.publicURL}
+          />
         }
-        id={post.id}
-        date={post.frontmatter.date}
-        tags={post.frontmatter.tags}
-        title={post.frontmatter.title}
         latest={allMarkdownRemark.edges}
         href={location.href}
       />
@@ -148,6 +134,12 @@ export const pageQuery = graphql`
     markdownRemark(id: { eq: $id }) {
       id
       html
+      fields {
+        slug
+        readingTime {
+          text
+        }
+      }
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title

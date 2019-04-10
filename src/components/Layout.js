@@ -13,8 +13,8 @@ const TemplateWrapper = ({ children }) => {
         <html lang="en" />
         <title>{title}</title>
         <meta name="description" content={description} />
-        <meta name="image" content="/img/og-image.png" />
-        <link rel="canonical" href="/" />
+        <meta name="image" content="https://blog.propachill.com/img/og-image.png" />
+        <link rel="canonical" href="https://blog.propachill.com/" />
 
         <link
           rel="apple-touch-icon"
@@ -45,14 +45,13 @@ const TemplateWrapper = ({ children }) => {
         <meta name="twitter:site" content="@propachill" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image:src" content="/img/og-image.png" />
-        <meta name="twitter:image" content="/img/og-image.png" />
+        <meta name="twitter:image" content="https://blog.propachill.com/img/og-image.png" />
 
         <meta property="og:site_name" content="PropaChill Blog" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
-        <meta property="og:url" content="/" />
-        <meta property="og:image" content="/img/og-image.png" />
+        <meta property="og:url" content="https://blog.propachill.com/" />
+        <meta property="og:image" content="https://blog.propachill.com/img/og-image.png" />
       </Helmet>
       <Navbar />
       <div>{children}</div>
