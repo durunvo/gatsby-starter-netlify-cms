@@ -6,6 +6,7 @@ import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 import { DiscussionEmbed } from 'disqus-react'
+import { Twitter, Facebook, Linkedin, Mail } from 'react-social-sharing'
 
 export const BlogPostTemplate = ({
   id,
@@ -17,13 +18,10 @@ export const BlogPostTemplate = ({
   helmet,
   date,
   image,
+  latest,
+  href,
 }) => {
   const PostContent = contentComponent || Content
-  const disqusShortname = "blog-propachill-com";
-  const disqusConfig = {
-    identifier: id,
-    title: title,
-  };
 
   return (
     <section className="section">
@@ -34,7 +32,7 @@ export const BlogPostTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-            <p>Published on {date} by Admin</p>
+            <p>{date}</p>
             <PostContent content={content} />
             {tags && tags.length ? (
               <div style={{ marginTop: `4rem` }}>
@@ -48,7 +46,29 @@ export const BlogPostTemplate = ({
                 </ul>
               </div>
             ) : null}
-            <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+            <h4>Share</h4>
+            <p><Facebook link={href} /><Twitter link={href} /><Linkedin link={href} /><Mail link={href} /></p>
+            <h4>Author</h4>
+            <p>PropaChill Team - We provide you accommodation in Bangkok, Follow us at <a href="https://www.facebook.com/propachill" target="_blank" rel="noopener noreferrer">PropaChill</a> if you want to be informed about new articles. We are open to any suggestions from you. Do not hesitate to tell me what you think.</p>
+            <h4>Latest Posts</h4>
+            <ul>
+            {latest &&
+              latest.map(({ node: post }) => (
+                <li>
+                  <Link
+                    className="title has-text-primary is-size-4"
+                    to={post.fields.slug}
+                  >
+                    {post.frontmatter.title}
+                  </Link>
+                  <p>
+                    {post.excerpt}
+                  </p>
+                </li>
+              ))
+            }
+            </ul>
+            <DiscussionEmbed shortname="blog-propachill-com" config={{ identifier: id, title: title }} />
           </div>
         </div>
       </div>
@@ -67,8 +87,8 @@ BlogPostTemplate.propTypes = {
 }
 
 const BlogPost = ({ data, location }) => {
-  const { markdownRemark: post } = data
-
+  const { markdownRemark: post, allMarkdownRemark } = data
+  console.log(location);
   return (
     <Layout>
       <BlogPostTemplate
@@ -87,7 +107,7 @@ const BlogPost = ({ data, location }) => {
               image={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'}
             />
             <meta property="og:type" content="article" />
-            <meta property="og:url" content={location.pathname} />
+            <meta property="og:url" content={location.href} />
             <meta property="og:title" content={post.frontmatter.title} />
             <meta property="og:image" content={post.frontmatter.image ? post.frontmatter.image.publicURL : '/img/og-image.png'} />
           </Helmet>
@@ -97,6 +117,8 @@ const BlogPost = ({ data, location }) => {
         image={post.frontmatter.image}
         tags={post.frontmatter.tags}
         title={post.frontmatter.title}
+        latest={allMarkdownRemark.edges}
+        href={location.href}
       />
     </Layout>
   )
@@ -105,6 +127,9 @@ const BlogPost = ({ data, location }) => {
 BlogPost.propTypes = {
   data: PropTypes.shape({
     markdownRemark: PropTypes.object,
+    allMarkdownRemark: PropTypes.shape({
+      edges: PropTypes.array,
+    }),
   }),
 }
 
@@ -125,6 +150,34 @@ export const pageQuery = graphql`
           childImageSharp {
             fluid(maxWidth: 2048, quality: 100) {
               ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+    allMarkdownRemark(
+      limit: 6
+      sort: { order: DESC, fields: [frontmatter___date] }
+      filter: { id: { ne: $id }, frontmatter: { templateKey: { eq: "blog-post" } } }
+    ) {
+      edges {
+        node {
+          excerpt(pruneLength: 400)
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            templateKey
+            date(formatString: "MMMM DD, YYYY")
+            image {
+              publicURL
+              childImageSharp {
+                fluid(maxWidth: 2048, quality: 100) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
             }
           }
         }

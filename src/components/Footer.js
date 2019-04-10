@@ -46,7 +46,7 @@ const Footer = class extends React.Component {
                       </Link>
                     </li>
                     <li>
-                      <a className="navbar-item" href="https://propachill.com" target="_blank">
+                      <a className="navbar-item" href="https://propachill.com" target="_blank" rel="noopener noreferrer">
                         Propachill.com
                       </a>
                     </li>
@@ -54,14 +54,14 @@ const Footer = class extends React.Component {
                 </section>
               </div>
               <div className="column is-4 social">
-                <a title="facebook" href="https://facebook.com/propachill" target="_blank">
+                <a title="facebook" href="https://facebook.com/propachill" target="_blank" rel="noopener noreferrer">
                   <img
                     src={facebook}
                     alt="Facebook"
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="twitter" href="https://twitter.com/propachill" target="_blank">
+                <a title="twitter" href="https://twitter.com/propachill" target="_blank" rel="noopener noreferrer">
                   <img
                     className="fas fa-lg"
                     src={twitter}
@@ -69,14 +69,14 @@ const Footer = class extends React.Component {
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="instagram" href="https://instagram.com/propachill" target="_blank">
+                <a title="instagram" href="https://instagram.com/propachill" target="_blank" rel="noopener noreferrer">
                   <img
                     src={instagram}
                     alt="Instagram"
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="youtube" href="https://www.youtube.com/channel/UCZgaC-vpv07nEjOz-vdoowA" target="_blank">
+                <a title="youtube" href="https://www.youtube.com/channel/UCZgaC-vpv07nEjOz-vdoowA" target="_blank" rel="noopener noreferrer">
                   <img
                     src={youtube}
                     alt="Youtube"
