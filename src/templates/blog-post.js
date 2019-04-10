@@ -97,8 +97,6 @@ const BlogPost = ({ data, location }) => {
     ...post.frontmatter,
   }
 
-  console.log(finalPost);
-
   return (
     <Layout>
       <BlogPostTemplate
@@ -108,7 +106,7 @@ const BlogPost = ({ data, location }) => {
           <SEO
             isBlogPost={true}
             postData={finalPost}
-            postImage={finalPost.image && finalPost.publicURL}
+            postImage={finalPost.image && finalPost.image.publicURL}
           />
         }
         latest={allMarkdownRemark.edges}

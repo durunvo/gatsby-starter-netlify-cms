@@ -20,7 +20,7 @@ const getSchemaOrgJSONLD = ({
 }) => {
   const schemaOrgJSONLD = [
     {
-      '@context': 'http://schema.org',
+      '@context': 'https://schema.org',
       '@type': 'WebSite',
       url,
       name: title,
@@ -32,7 +32,7 @@ const getSchemaOrgJSONLD = ({
     ? [
         ...schemaOrgJSONLD,
         {
-          '@context': 'https://blog.propachill.com',
+          '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
             {
@@ -47,7 +47,7 @@ const getSchemaOrgJSONLD = ({
           ],
         },
         {
-          '@context': 'https://blog.propachill.com',
+          '@context': 'https://schema.org',
           '@type': 'BlogPosting',
           url,
           name: title,
@@ -65,7 +65,10 @@ const getSchemaOrgJSONLD = ({
           publisher: {
             '@type': 'Organization',
             url: 'https://blog.propachill.com',
-            logo: config.logo,
+            logo: {
+              '@type': 'ImageObject',
+              url: config.logo,
+            },
             name: 'PropaChill',
           },
           mainEntityOfPage: {
@@ -86,8 +89,6 @@ const SEO = ({ postData, postImage, isBlogPost }) => {
   const description =
     postMeta.description || postData.excerpt || config.description;
   const image = `${config.url}${postImage || config.image}`
-
-  console.log(image);
 
   const slug = postMeta.slug;
   const url = postMeta.slug
