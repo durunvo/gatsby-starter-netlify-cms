@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql, StaticQuery } from 'gatsby'
 import PreviewCompatibleImage from '../components/PreviewCompatibleImage'
+import { Button } from 'antd'
 
 class BlogRoll extends React.Component {
   render() {
@@ -31,8 +32,8 @@ class BlogRoll extends React.Component {
                   {post.excerpt}
                   <br />
                   <br />
-                  <Link className="button" to={post.fields.slug}>
-                    Keep Reading →
+                  <Link to={post.fields.slug}>
+                    <Button>Keep Reading →</Button>
                   </Link>
                 </p>
               </article>
