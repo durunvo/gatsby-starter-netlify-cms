@@ -6,6 +6,8 @@ import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 import { DiscussionEmbed } from 'disqus-react'
 import { Twitter, Facebook, Linkedin, Mail } from 'react-social-sharing'
+import { Row, Col, Icon, List, Avatar } from 'antd'
+import BlogCard from '../components/BlogCard'
 import SEO from '../components/SEO';
 
 export const BlogPostTemplate = ({
@@ -43,30 +45,27 @@ export const BlogPostTemplate = ({
             ) : null}
             {href &&
               <>
-                <h4>Share</h4>
-                <div><Facebook link={href} /><Twitter link={href} /><Linkedin link={href} /><Mail link={href} /></div>
+                <h4>Sharing is Caring <Icon type="heart" theme="twoTone" twoToneColor="red" /></h4>
+                <div style={{ marginBottom: 16 }}><Facebook link={href} /><Twitter link={href} /><Linkedin link={href} /><Mail link={href} /></div>
               </>
             }
             <h4>Author</h4>
-            <p>PropaChill Team - We provide you accommodation in Bangkok, Follow us at <a href="https://www.facebook.com/propachill" target="_blank" rel="noopener noreferrer">PropaChill</a> if you want to be informed about new articles. We are open to any suggestions from you. Do not hesitate to tell me what you think.</p>
-            <h4>Latest Posts</h4>
-            <ul>
+            <List.Item style={{ marginBottom: 16, maxWidth: 500 }}>
+              <List.Item.Meta
+                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                description={<p>We provide you accommodation in Bangkok, Follow us at <a href="https://www.facebook.com/propachill" target="_blank" rel="noopener noreferrer">PropaChill</a> if you want to be informed about new articles. We are open to any suggestions from you. Do not hesitate to tell me what you think.</p>}
+              />
+            </List.Item>
+            <h4>Our Latest Posts</h4>
+            <Row type="flex" gutter={12}>
             {latest && latest.length &&
               latest.map(({ node: post }) => (
-                <li key={post.id}>
-                  <Link
-                    className="title has-text-primary is-size-4"
-                    to={post.fields.slug}
-                  >
-                    {post.frontmatter.title}
-                  </Link>
-                  <p>
-                    {post.excerpt}
-                  </p>
-                </li>
+                <Col xs={24} sm={12} key={post.id} style={{ marginBottom: 12 }}>
+                  <BlogCard post={post}/>
+                </Col>
               ))
             }
-            </ul>
+            </Row>
             <DiscussionEmbed shortname="blog-propachill-com" config={{ identifier: id, title }} />
           </div>
         </div>
@@ -153,13 +152,13 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      limit: 6
+      limit: 4
       sort: { order: DESC, fields: [frontmatter___date] }
       filter: { id: { ne: $id }, frontmatter: { templateKey: { eq: "blog-post" } } }
     ) {
       edges {
         node {
-          excerpt(pruneLength: 400)
+          excerpt(pruneLength: 160)
           id
           fields {
             slug

@@ -1,7 +1,7 @@
 ---
 templateKey: index-page
 title: A Guide to Thailand - Life, Eats, Places, Shops and More - PropaChill.com
-image: /img/home-jumbotron.jpg
+image: /img/og-image.jpg
 heading: A Guide to Thailand
 subheading: Life, Eats, Places, Shops and More
 mainpitch:

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link, graphql, StaticQuery } from 'gatsby'
-import PreviewCompatibleImage from '../components/PreviewCompatibleImage'
-import { Button } from 'antd'
+import { graphql, StaticQuery } from 'gatsby'
+import BlogCard from '../components/BlogCard'
+import { Card, Row, Col } from 'antd'
 
 class BlogRoll extends React.Component {
   render() {
@@ -10,36 +10,15 @@ class BlogRoll extends React.Component {
     const { edges: posts } = data.allMarkdownRemark
 
     return (
-      <div className="columns is-multiline">
-        {posts &&
-          posts.map(({ node: post }) => (
-            <div className="is-parent column is-6" key={post.id}>
-              {post.frontmatter.image && <PreviewCompatibleImage imageInfo={post.frontmatter.image} />}
-              <article className="tile is-child box notification">
-                <p>
-                  <Link
-                    className="title has-text-primary is-size-4"
-                    to={post.fields.slug}
-                  >
-                    {post.frontmatter.title}
-                  </Link>
-                  <span> &bull; </span>
-                  <span className="subtitle is-size-5 is-block">
-                    {post.frontmatter.date}
-                  </span>
-                </p>
-                <p>
-                  {post.excerpt}
-                  <br />
-                  <br />
-                  <Link to={post.fields.slug}>
-                    <Button>Keep Reading →</Button>
-                  </Link>
-                </p>
-              </article>
-            </div>
-          ))}
-      </div>
+      <Row type="flex" gutter={12}>
+        {
+          posts && posts.map(({ node: post }) => (
+            <Col xs={24} sm={12} md={8} key={post.id} style={{ marginBottom: 12 }}>
+              <BlogCard post={post}/>
+            </Col>
+          ))
+        }
+      </Row>
     )
   }
 }
@@ -62,7 +41,7 @@ export default () => (
         ) {
           edges {
             node {
-              excerpt(pruneLength: 400)
+              excerpt(pruneLength: 160)
               id
               fields {
                 slug
