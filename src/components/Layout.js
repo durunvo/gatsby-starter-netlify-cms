@@ -13,7 +13,7 @@ const TemplateWrapper = ({ children }) => {
         <html lang="en" />
         <title>{title}</title>
         <meta name="description" content={description} />
-        <meta name="image" content="https://blog.propachill.com/img/og-image.png" />
+        <meta name="image" content="https://blog.propachill.com/img/og-image.jpg" />
         <link rel="canonical" href="https://blog.propachill.com/" />
 
         <link
@@ -45,13 +45,13 @@ const TemplateWrapper = ({ children }) => {
         <meta name="twitter:site" content="@propachill" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content="https://blog.propachill.com/img/og-image.png" />
+        <meta name="twitter:image" content="https://blog.propachill.com/img/og-image.jpg" />
 
         <meta property="og:site_name" content="PropaChill Blog" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:url" content="https://blog.propachill.com/" />
-        <meta property="og:image" content="https://blog.propachill.com/img/og-image.png" />
+        <meta property="og:image" content="https://blog.propachill.com/img/og-image.jpg" />
       </Helmet>
       <Navbar />
       <div>{children}</div>
