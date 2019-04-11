@@ -4,9 +4,10 @@ import { BlogPostTemplate } from '../../templates/blog-post'
 
 const BlogPostPreview = ({ entry, widgetFor }) => (
   <BlogPostTemplate
+    isPreview
     content={widgetFor('body')}
     description={entry.getIn(['data', 'description'])}
-    tags={entry.getIn(['data', 'tags'])}
+    tags={entry.getIn(['data', 'tags']).toArray()}
     title={entry.getIn(['data', 'title'])}
     date={entry.getIn(['data', 'date']).toLocaleDateString()}
   />

@@ -11,7 +11,7 @@ const Footer = class extends React.Component {
           <div className="footer-inner">
             <Row type="flex" gutter={24}>
               <Col xs={24} sm={8} md={7} lg={5}>
-                <img src={logo} style={{ height: 25 }} />
+                <img src={logo} style={{ height: 25 }} alt="Propachill" />
                 <div className="socials">
                   <a title="facebook" href="https://facebook.com/propachill" target="_blank" rel="noopener noreferrer"><Icon type="facebook" style={{ fontSize: 28 }}/></a>
                   <a title="twitter" href="https://twitter.com/propachill" target="_blank" rel="noopener noreferrer"><Icon type="twitter" style={{ fontSize: 28 }}/></a>
@@ -20,7 +20,7 @@ const Footer = class extends React.Component {
                 </div>
                 <p><a title="tel" href="tel:0905392424" target="_blank" rel="noopener noreferrer"><Icon type="phone" style={{ fontSize: 20 }}/> 090 539 2424</a></p>
                 <p><a title="mail" href="mailto:hello@propachill.com" target="_blank" rel="noopener noreferrer"><Icon type="mail" style={{ fontSize: 20 }}/> hello@propachill.com</a></p>
-                <p><a title="line@" href="https://line.me/ti/p/@propachill" target="_blank" rel="noopener noreferrer"><img src={line} height="20" width="20"/> @propachill</a></p>
+                <p><a title="line@" href="https://line.me/ti/p/@propachill" target="_blank" rel="noopener noreferrer"><img src={line} height="20" width="20" alt="line"/> @propachill</a></p>
               </Col>
               <Col xs={24} sm={16} md={17} lg={19}>
                 <Row type="flex" gutter={24} >

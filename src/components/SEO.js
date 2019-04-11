@@ -90,7 +90,6 @@ const SEO = ({ postData, postImage, isBlogPost }) => {
     postMeta.description || postData.excerpt || config.description;
   const image = `${config.url}${postImage || config.image}`
 
-  const slug = postMeta.slug;
   const url = postMeta.slug
     ? `${config.url}${postMeta.slug}`
     : config.url;

@@ -11,14 +11,20 @@ import BlogCard from '../components/BlogCard'
 import SEO from '../components/SEO';
 
 export const BlogPostTemplate = ({
-  post,
+  isPreview,
+  id,
+  title,
+  description,
+  tags,
+  readingTime,
+  date,
+  content,
   contentComponent,
   helmet,
   latest,
   href,
 }) => {
   const PostContent = contentComponent || Content
-  const { id, title, tags, date, html, description, readingTime } = post
 
   return (
     <section className="section">
@@ -29,8 +35,8 @@ export const BlogPostTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-            <p>{date} • {readingTime.text}</p>
-            <PostContent content={html} />
+            <p>{date} • {readingTime}</p>
+            <PostContent content={content} />
             {tags && tags.length ? (
               <div style={{ marginTop: `4rem` }}>
                 <h4>Tags</h4>
@@ -49,24 +55,30 @@ export const BlogPostTemplate = ({
                 <div style={{ marginBottom: 16 }}><Facebook link={href} /><Twitter link={href} /><Linkedin link={href} /><Mail link={href} /></div>
               </>
             }
-            <h4>Author</h4>
-            <List.Item style={{ marginBottom: 16, maxWidth: 500 }}>
-              <List.Item.Meta
-                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                description={<p>We provide you accommodation in Bangkok, Follow us at <a href="https://www.facebook.com/propachill" target="_blank" rel="noopener noreferrer">PropaChill</a> if you want to be informed about new articles. We are open to any suggestions from you. Do not hesitate to tell me what you think.</p>}
-              />
-            </List.Item>
-            <h4>Our Latest Posts</h4>
-            <Row type="flex" gutter={12}>
-            {latest && latest.length &&
-              latest.map(({ node: post }) => (
-                <Col xs={24} sm={12} key={post.id} style={{ marginBottom: 12 }}>
-                  <BlogCard post={post}/>
-                </Col>
-              ))
+            {
+              !isPreview && (
+                <>
+                  <h4>Author</h4>
+                  <List.Item style={{ marginBottom: 16, maxWidth: 500 }}>
+                    <List.Item.Meta
+                      avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                      description={<p>We provide you accommodation in Bangkok, Follow us at <a href="https://www.facebook.com/propachill" target="_blank" rel="noopener noreferrer">PropaChill</a> if you want to be informed about new articles. We are open to any suggestions from you. Do not hesitate to tell me what you think.</p>}
+                    />
+                  </List.Item>
+                  <h4>Our Latest Posts</h4>
+                  <Row type="flex" gutter={12}>
+                  {latest && latest.length &&
+                    latest.map(({ node: post }) => (
+                      <Col xs={24} sm={12} key={post.id} style={{ marginBottom: 12 }}>
+                        <BlogCard post={post}/>
+                      </Col>
+                    ))
+                  }
+                  </Row>
+                  <DiscussionEmbed shortname="blog-propachill-com" config={{ identifier: id, title }} />
+                </>
+              )
             }
-            </Row>
-            <DiscussionEmbed shortname="blog-propachill-com" config={{ identifier: id, title }} />
           </div>
         </div>
       </div>
@@ -77,34 +89,34 @@ export const BlogPostTemplate = ({
 BlogPostTemplate.propTypes = {
   contentComponent: PropTypes.func,
   helmet: PropTypes.object,
-  post: PropTypes.shape({
-    html: PropTypes.node.isRequired,
-    description: PropTypes.string,
-    title: PropTypes.string,
-    date: PropTypes.string,
-    image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  })
+  content: PropTypes.node.isRequired,
+  id: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  date: PropTypes.string,
+  readingTime: PropTypes.string,
+  image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 }
 
 const BlogPost = ({ data, location }) => {
   const { markdownRemark: post, allMarkdownRemark } = data
 
-  const finalPost = {
-    ...post,
-    ...post.fields,
-    ...post.frontmatter,
-  }
-
   return (
     <Layout>
       <BlogPostTemplate
-        post={finalPost}
+        title={post.frontmatter.title}
+        description={post.frontmatter.description}
+        date={`${post.frontmatter.date}`}
+        image={post.frontmatter.image}
+        tags={post.frontmatter.tags}
+        readingTime={post.fields.readingTime.text}
+        content={post.html}
         contentComponent={HTMLContent}
         helmet={
           <SEO
             isBlogPost={true}
-            postData={finalPost}
-            postImage={finalPost.image && finalPost.image.publicURL}
+            postData={Object.assign({}, post, post.fields, post.frontmatter)}
+            postImage={post.frontmatter.image && post.frontmatter.image.publicURL}
           />
         }
         latest={allMarkdownRemark.edges}
