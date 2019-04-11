@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import BlogCard from '../components/BlogCard'
-import { Card, Row, Col } from 'antd'
+import { Row, Col } from 'antd'
 
 class BlogRoll extends React.Component {
   render() {

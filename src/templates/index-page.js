@@ -61,7 +61,7 @@ export const IndexPageTemplate = ({
         <div className="columns">
           <div className="column is-12">
             <div className="content">
-              <div className="content">
+              {/*<div className="content">
                 <div className="tile">
                   <h1 className="title">{mainpitch.title}</h1>
                 </div>
@@ -84,8 +84,8 @@ export const IndexPageTemplate = ({
                     See all products
                   </Link>
                 </div>
-              </div>
-              <div className="column is-12">
+              </div>*/}
+              <div className="content">
                 <h3 className="has-text-weight-semibold">
                   Latest stories
                 </h3>

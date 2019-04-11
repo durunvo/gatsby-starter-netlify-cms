@@ -8,7 +8,7 @@ const Footer = class extends React.Component {
     return (
       <footer className="footer">
         <Row type="flex" justify="center">
-          <div className="footer-inner">
+          <div className="footer-inner container">
             <Row type="flex" gutter={24}>
               <Col xs={24} sm={8} md={7} lg={5}>
                 <img src={logo} style={{ height: 25 }} alt="Propachill" />
