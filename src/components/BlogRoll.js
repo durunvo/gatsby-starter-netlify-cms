@@ -13,7 +13,7 @@ class BlogRoll extends React.Component {
       <Row type="flex" gutter={12}>
         {
           posts && posts.map(({ node: post }) => (
-            <Col xs={24} sm={12} md={8} key={post.id} style={{ marginBottom: 12 }}>
+            <Col xs={24} lg={12} key={post.id} style={{ marginBottom: 12 }}>
               <BlogCard post={post}/>
             </Col>
           ))

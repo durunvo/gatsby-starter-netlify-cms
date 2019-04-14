@@ -23,10 +23,11 @@ collections:
       - {label: "Tags", name: "tags", widget: "list"}
       - {label: "Post Author", name: "author", widget: "relation", collection: "authors"}
 
-  - name: "authors"
-    label: "Authors"
-    folder: "src/pages/authors"
+  - name: "author"
+    label: "Author"
+    folder: "src/pages/author"
     create: true
+    slug: "{{slug}}"
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "author-page"}
       - {label: "Name", name: "name", widget: "string", hint: "First and Last"}

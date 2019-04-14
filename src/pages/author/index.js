@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { kebabCase } from 'lodash'
 import Helmet from 'react-helmet'
 import { Link, graphql } from 'gatsby'
@@ -7,13 +8,18 @@ import Layout from '../../components/Layout'
 const AuthorsPage = ({
   data: {
     site: {
-      siteMetadata: { title },
+      siteMetadata: {
+        title
+      }
     },
-  },
+    allMarkdownRemark: {
+      edges: posts
+    }
+  }
 }) => (
   <Layout>
     <section className="section">
-      <Helmet title={`Authors | ${title}`} />
+      <Helmet title={`Authors | ${'as'}`} />
       <div className="container content">
         <div className="columns">
           <div
@@ -23,13 +29,13 @@ const AuthorsPage = ({
             <h1 className="title is-size-2 is-bold-light">Authors</h1>
             <ul className="taglist">
               {
-                // group.map(author => (
-                //   <li key={author.fieldValue}>
-                //     <Link to={`/authors/${kebabCase(author.fieldValue)}/`}>
-                //       {author.fieldValue}
-                //     </Link>
-                //   </li>
-                // ))
+                posts.map(author => (
+                  <li key={author.node.id}>
+                    <Link to={author.node.fields.slug}>
+                      {author.node.frontmatter.name}
+                    </Link>
+                  </li>
+                ))
               }
             </ul>
           </div>
@@ -38,6 +44,14 @@ const AuthorsPage = ({
     </section>
   </Layout>
 )
+
+AuthorsPage.propTypes = {
+  data: PropTypes.shape({
+    allMarkdownRemark: PropTypes.shape({
+      edges: PropTypes.array,
+    }),
+  }),
+}
 
 export default AuthorsPage
 
@@ -48,17 +62,27 @@ export const authorPageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(limit: 1000) {
+    allMarkdownRemark(
+      sort: { order: ASC, fields: [frontmatter___name] }
+      filter: { frontmatter: { templateKey: { eq: "author-page" } } }
+    ) {
       edges {
         node {
           id
+          fields {
+            slug
+          }
           frontmatter {
             name
             templateKey
             description
             image {
               publicURL
-
+              childImageSharp {
+                fluid(maxWidth: 2048, quality: 100) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
             }
           }
         }
