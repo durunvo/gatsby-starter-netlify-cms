@@ -5,6 +5,8 @@ backend:
 media_folder: static/img
 public_folder: /img
 
+site_url: https://blog.propachill.com
+
 collections:
   - name: "blog"
     label: "Blog"
@@ -19,6 +21,17 @@ collections:
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
+      - {label: "Post Author", name: "author", widget: "relation", collection: "authors"}
+
+  - name: "authors"
+    label: "Authors"
+    folder: "src/pages/authors"
+    create: true
+    fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "author-page"}
+      - {label: "Name", name: "name", widget: "string", hint: "First and Last"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Description", name: "description", widget: "markdown"}
 
   - name: "pages"
     label: "Pages"
