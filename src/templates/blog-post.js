@@ -69,7 +69,7 @@ export const BlogPostTemplate = ({
                   <Row type="flex" gutter={12}>
                   {latest && latest.length &&
                     latest.map(({ node: post }) => (
-                      <Col xs={24} sm={12} key={post.id} style={{ marginBottom: 12 }}>
+                      <Col xs={24} lg={12} key={post.id} style={{ marginBottom: 12 }}>
                         <BlogCard post={post}/>
                       </Col>
                     ))
@@ -100,7 +100,7 @@ BlogPostTemplate.propTypes = {
 
 const BlogPost = ({ data, location }) => {
   const { markdownRemark: post, allMarkdownRemark } = data
-
+  console.log(data);
   return (
     <Layout>
       <BlogPostTemplate
