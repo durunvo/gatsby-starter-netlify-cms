@@ -21,7 +21,7 @@ collections:
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
-      - {label: "Post Author", name: "author", widget: "relation", collection: "author"}
+      - {label: "Post Author", name: "author", widget: "relation", collection: "author", searchFields: ["name"], valueField: "name"}
 
   - name: "author"
     label: "Author"
